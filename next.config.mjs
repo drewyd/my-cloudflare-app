@@ -3,9 +3,19 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  env: {
-    SB_COMPANY_LOGIN: process.env.SB_COMPANY_LOGIN,
-    SB_API_TOKEN: process.env.SB_API_TOKEN,
+  reactStrictMode: true,
+  swcMinify: true,
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'Content-Security-Policy', value: "default-src 'self'" },
+        ],
+      },
+    ];
   },
 };
 
